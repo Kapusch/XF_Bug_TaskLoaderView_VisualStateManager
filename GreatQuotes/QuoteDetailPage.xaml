@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="GreatQuotes.QuoteDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:me="clr-namespace:GreatQuotes;assembly=GreatQuotes"
+    xmlns:sharpnado="clr-namespace:Sharpnado.Presentation.Forms.CustomViews;assembly=Sharpnado.TaskLoaderView"
+    x:Name="QuoteDetailsPage">
+
+    <!--<sharpnado:TaskLoaderView TaskLoaderNotifier="{Binding QuoteDetailsLoaderNotifier}">-->
+    <Grid Padding="5" RowSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackLayout
+            Grid.Row="0"
+            HorizontalOptions="Center"
+            Orientation="Horizontal"
+            Spacing="10"
+            VerticalOptions="Center">
+
+            <Label Text="Switch text color: " />
+
+            <Switch
+                x:Name="SwitchTextColor"
+                IsToggled="{Binding IsToggled}"
+                OnColor="Blue" />
+
+        </StackLayout>
+
+        <Label
+            x:Name="QuoteText"
+            Grid.Row="1"
+            FontSize="Large"
+            HorizontalTextAlignment="Center"
+            Text="{Binding QuoteText}"
+            VerticalTextAlignment="Center" />
+
+        <Label
+            Grid.Row="2"
+            HorizontalOptions="End"
+            HorizontalTextAlignment="End"
+            Text="{Binding Author}" />
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState Name="BlueTextColor">
+                    <VisualState.StateTriggers>
+                        <StateTrigger IsActive="{Binding IsToggled}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter TargetName="QuoteText" Property="Label.TextColor" Value="Blue" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState Name="BlackTextColor">
+                    <VisualState.StateTriggers>
+                        <StateTrigger IsActive="{Binding IsToggled, Converter={x:StaticResource InverseBoolConverter}}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter TargetName="QuoteText" Property="Label.TextColor" Value="Black" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+    <!--</sharpnado:TaskLoaderView>-->
+</ContentPage>
+
